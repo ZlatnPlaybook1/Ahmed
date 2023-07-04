@@ -1,0 +1,127 @@
+#include <iostream>
+using namespace std;
+struct Node{
+    int data ;
+    Node* next ;
+};
+class linkedlist{
+    public:
+        Node*head;
+    linkedlist()
+    {
+        head=NULL;
+    }
+ void insert(int val) {
+        Node* newnode = new Node(); // Create a new node
+        newnode->data = val;
+        newnode->next = NULL;
+
+        if (head == NULL) {
+            head = newnode;
+        } else {
+            Node* current = head;
+            while (current->next != NULL) {
+                current = current->next;
+            }
+            current->next = newnode;
+        }
+    }
+    //insert node at the begining of the linkedlist
+void insert_Node(int new_element)
+    {
+        Node*newnode=new Node();
+        newnode->data=new_element;
+        newnode->next=head;
+        head=newnode;
+    }
+
+
+void display() {
+        Node* current = head;
+        while (current != NULL) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+    //function to count the number of linkedlist
+int count()
+{
+    Node*current=head;
+    int counter = 0  ;
+    while(current != NULL)
+    {
+     counter++;
+     current=current->next;
+    }
+    return counter ;
+}
+
+Node* findMiddleElement() {
+    if (head == NULL)
+        return NULL;
+
+    Node* slow = head;
+    Node* fast = head;
+
+    while (fast != NULL && fast->next != NULL) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+};
+
+int main() {
+    linkedlist s ;
+    s.insert(1);
+    s.insert(3);
+    s.insert(5);
+    s.insert(7);
+    s.insert(9);
+    s.insert(12);
+    s.insert(15);
+    cout<<"Original linkedlist :";
+    s.display();
+    s.insert_Node(1);
+    cout<<"Update linkedlist is: ";
+    s.display();
+    cout<<"The count of number in linkedlist :"<<s.count()<<endl;
+
+    // Call the findMiddleElement function
+Node* middle = s.findMiddleElement();
+if (middle != NULL)
+    cout << "Middle element: " << middle->data << endl;
+else
+    cout << "The linked list is empty." << endl;
+    return 0;
+}
+-====================================================================
+ void deleteElement(int val) {
+        Node* current = head;
+        Node* prev = NULL;
+
+        // Traverse the list to find the node to delete
+        while (current != NULL && current->data != val) {
+            prev = current;
+            current = current->next;
+        }
+
+        // If the element was not found
+        if (current == NULL) {
+            cout << "Element not found in the linked list." << endl;
+            return;
+        }
+
+        // If the element is found at the head node
+        if (prev == NULL) {
+            head = head->next;
+            delete current;
+        } else {
+            prev->next = current->next;
+            delete current;
+        }
+
+        cout << "Element deleted successfully." << endl;
+    }

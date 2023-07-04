@@ -1,0 +1,158 @@
+#include<iostream>
+using namespace std ;
+#define MAX_SIZE 100
+class stack
+{
+  private  :
+      int arr[MAX_SIZE];
+      int top ;
+  public :
+    stack()
+    {
+        top=-1 ;
+    }
+  //function to push Element
+void push(int val )
+    {
+        if(top>=MAX_SIZE-1)
+        {
+            cout<<"Stack overflow! cannot to push element "  <<endl;
+        }else
+        {
+            arr[++top] =val ;
+            cout<<" pushed " << val <<" into the stack "<<endl;
+        }
+    }
+    //function to pop element
+void pop()
+{
+    if(top<0)
+    {
+        cout<<"Stack is underflow! cannot to pop Element " <<endl ;
+    }else{
+        int value=arr[top--] ;
+        cout<<" poped " << value <<" from the stack  " <<endl;
+    }
+}
+  //function to find the top element at he stack
+int peek()
+{
+    if(top<0)
+    {
+        cout<<"Stack is Empty "<<endl ;
+     return -1 ;
+    }
+    return arr[top] ;
+}
+//function to display the stack
+void display()
+{
+  if(top<0)
+  {
+      cout<<"Stack is empty" <<endl;}
+      else{
+        cout<<"The content of Stack is : " ;
+        for(int i = 0  ; i<=top ; i++)
+        {
+            cout<<arr[i]<< " " ;
+        }
+        cout<<endl ;
+      }
+}
+//function to find the middle element
+int getMiddleElement()
+{
+    if(top<0)
+  {
+      cout<<"Stack is empty" <<endl;
+      return - 1 ;}
+      else{
+        int count=0 ;
+        for(int i= 0 ; i<=top ; i++)
+        {
+            count ++ ;
+        }
+        int middle=count / 2 ;
+        return arr[middle] ;
+   }
+}
+bool isEmpty()
+{
+    return (top < 0);
+}
+// Function to delete the middle element
+    void delete_middle()
+    {
+        if (top < 0)
+        {
+            cout << "Stack is empty." << endl;
+        }
+        else
+        {
+            int count = top + 1;
+            int middle = count / 2;
+            stack tempStack;
+
+            for (int i = middle + 1; i <= top; i++)
+            {
+                tempStack.push(arr[i]);
+            }
+
+            top = middle; // Adjust the top index
+
+            while (!tempStack.isEmpty())
+            {
+                push(tempStack.peek());
+                tempStack.pop();
+            }
+
+            cout << "Deleted middle element from the stack." << endl;
+        }
+    }
+};
+int main()
+{
+    stack ll ;
+    int choice , val ;
+    while (true)
+    {
+        cout<<"1)push"<<endl ;
+        cout<<"2)pop"<<endl ;
+        cout<<"3)peek"<<endl ;
+        cout<<"4)getThe middle element "<<endl ;
+        cout<<"5)delete middle element " <<endl ;
+        cout<<"6)display stack "<<endl ;
+        cout<<"7)Exit"<<endl ;
+     cout<<"Enter your choice : " ;
+     cin>>choice  ;
+     switch(choice)
+     {
+     case 1  :
+        cout<<"Enter element to push  : "<<endl ;
+        cin>>val ;
+        ll.push(val);
+        break ;
+     case 2  :
+        ll.pop() ;
+        break ;
+     case 3  :
+        ll.peek() ;
+        break ;
+     case 4  :
+       cout<<"The  middle element is : " << ll.getMiddleElement()<<endl ;
+        break;
+     case 5  :
+         ll.delete_middle() ;
+         break ;
+     case 6 :
+        ll.display() ;
+        break ;
+     case 7  :
+        cout<<"Exit"<<endl;
+        break;
+     default:
+        cout<<"Invalid choice:" <<endl ;
+     }
+    }
+    return 0 ;
+}

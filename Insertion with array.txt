@@ -1,0 +1,28 @@
+#include <iostream>
+using namespace std;
+
+void insertionSort(int arr[], int n) {
+    for (int i = 1; i < n; i++) {   //Starting from the second element of the array (index 1)
+        int key = arr[i];    //This line stores the current element in a variable called key, which will be inserted into its correct position among the previous elements.
+        int j = i - 1;      //This line initializes a variable j to the index of the element immediately before the current element.
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];   //This line shifts the element at position j one position to the right (to position j+1) to create an empty slot for the key element.
+            j--;
+        }
+        arr[j + 1] = key;  // This line inserts the key element into its correct position 
+    }
+}
+
+int main() {
+    int arr[] = {5, 2, 4, 6, 1, 3};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    insertionSort(arr, n);
+
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
+
+    return 0;
+}

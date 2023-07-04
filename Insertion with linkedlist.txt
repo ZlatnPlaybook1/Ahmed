@@ -1,0 +1,102 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+    
+    Node(int d) {
+        data = d;
+        next = NULL;
+    }
+};
+
+class LinkedList {
+public:
+    Node* head;
+    
+    LinkedList() {
+        head = NULL;
+    }
+    
+    void insert(int d) {
+        Node* new_node = new Node(d);
+        
+        if (head == NULL) {
+            head = new_node;
+        }
+        else {
+            Node* curr = head;
+            
+            while (curr->next != NULL) {
+                curr = curr->next;
+            }
+            
+            curr->next = new_node;
+        }
+    }
+    
+    void print() {
+        Node* curr = head;
+        
+        while (curr != NULL) {
+            cout << curr->data << " ";
+            curr = curr->next;
+        }
+        
+        cout << endl;
+    }
+    
+    void insertion_sort() {
+        if (head == NULL || head->next == NULL) {
+            return;
+        }
+        
+        Node* sorted = NULL;
+        Node* curr = head;
+        
+        while (curr != NULL) {
+            Node* next = curr->next;
+            
+            if (sorted == NULL || curr->data < sorted->data) {
+                curr->next = sorted;
+                sorted = curr;
+            }
+            else {
+                Node* tmp = sorted;
+                
+                while (tmp->next != NULL && curr->data > tmp->next->data) {
+                    tmp = tmp->next;
+                }
+                
+                curr->next = tmp->next;
+                tmp->next = curr;
+            }
+            
+            curr = next;
+        }
+        
+        head = sorted;
+    }
+};
+
+int main() {
+    LinkedList list;
+    
+    list.insert(3);
+    list.insert(1);
+    list.insert(4);
+    list.insert(2);
+    list.insert(5);
+    
+    cout << "Original List:" << endl;
+    list.print();
+    
+    list.insertion_sort();
+    
+    cout << "Sorted List:" << endl;
+    list.print();
+    
+    return 0;
+}
